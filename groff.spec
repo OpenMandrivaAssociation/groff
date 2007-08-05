@@ -23,17 +23,17 @@ Source1:  troff-to-ps.fpi
 Source2:  README.A4
 # nippon/multi-byte support from http://people.debian.org/~ukai/groff/
 Patch3:   groff-1.19.1-mb.patch
-Patch4:   groff-1.18-info.patch.bz2
-Patch5:   groff-1.19.1-nohtml.patch.bz2
-Patch6:   groff-1.17.2-libsupc++.patch.bz2
+Patch4:   groff-1.18-info.patch
+Patch5:   groff-1.19.1-nohtml.patch
+Patch6:   groff-1.17.2-libsupc++.patch
 Patch7:   groff-1.19.1-nops.patch
 Patch8:   groff-1.19.1-fonts.patch
-Patch102: groff-1.16.1-no-lbp-on-alpha.patch.bz2
+Patch102: groff-1.16.1-no-lbp-on-alpha.patch
 # improved (i18n) nroff script
 Patch108: groff-1.19-nroff.patch
 # keeps apostrophes and dashes as ascii, but only for man pages
 # -- pablo
-Patch109: groff-1.19-dashes.patch.bz2
+Patch109: groff-1.19-dashes.patch
 Patch110: groff-1.19.1-CAN-2004-0969.patch
 
 Requires:  mktemp groff-for-man = %{version}-%{release}
