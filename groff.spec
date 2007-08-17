@@ -194,9 +194,9 @@ cat <<EOF > groff-perl.list
 %_bindir/grog
 %_bindir/mmroff
 %_bindir/afmtodit
-%_mandir/man1/afmtodit.1.bz2
-%_mandir/man1/grog.1.bz2
-%_mandir/man1/mmroff.1.bz2
+%_mandir/man1/afmtodit.*
+%_mandir/man1/grog.*
+%_mandir/man1/mmroff.*
 EOF
 
 dirs=usr/share/man/*
