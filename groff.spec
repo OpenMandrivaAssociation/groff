@@ -40,7 +40,7 @@ Requires:  mktemp groff-for-man = %{version}-%{release}
 Buildroot: %_tmppath/%name-root
 Obsoletes: groff-tools
 Provides:  groff-tools
-Requires(post,preun): /sbin/install-info
+Requires(post,preun): info-install
 
 %description
 Groff is a document formatting system.  Groff takes standard text and
