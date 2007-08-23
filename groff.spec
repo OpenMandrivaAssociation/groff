@@ -4,7 +4,7 @@
 Summary:  A document formatting system
 Name:     groff
 Version:  1.19.1
-Release:  %mkrel 6
+Release:  %mkrel 7
 License:  GPL
 Group:    Text tools
 BuildRequires: autoconf2.5
