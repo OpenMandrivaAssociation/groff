@@ -1,49 +1,53 @@
 # rh-1.18-3
 # deb-1.18-4
 
-Summary:  A document formatting system
-Name:     groff
-Version:  1.19.1
-Release:  %mkrel 8
-License:  GPL
-Group:    Text tools
-BuildRequires: autoconf2.5
-BuildRequires: byacc
-BuildRequires: imake, gccmakedep
-BuildRequires: netpbm, netpbm-devel
-BuildRequires: texinfo >= 4.3
-BuildRequires: xpm-devel, libxaw-devel
-BuildRequires: perl-devel
-BuildRequires: ghostscript
+Summary:	A document formatting system
+Name:		groff
+Version:	1.19.1
+Release:	%mkrel 7
+License:	GPLv2+
+Group:		Text tools
+BuildRequires:	autoconf
+BuildRequires:	byacc
+BuildRequires:	imake
+BuildRequires:	gccmakedep
+BuildRequires:	netpbm
+BuildRequires:	netpbm-devel
+BuildRequires:	texinfo >= 4.3
+BuildRequires:	xpm-devel
+BuildRequires:	libxaw-devel
+BuildRequires:	perl-devel
+BuildRequires:	ghostscript
 # For psselect:
-BuildRequires: psutils
+BuildRequires:	psutils
 # for rman:
-BuildRequires: XFree86
-Url:      http://www.gnu.org/directory/GNU/groff.html
-Source0:  ftp://prep.ai.mit.edu/pub/gnu/groff/%name-%version.tar.bz2
-Source1:  troff-to-ps.fpi
-Source2:  README.A4
+BuildRequires:	x11-server-common
+URL:		http://www.gnu.org/directory/GNU/groff.html
+Source0:	ftp://prep.ai.mit.edu/pub/gnu/groff/%name-%version.tar.bz2
+Source1:	troff-to-ps.fpi
+Source2:	README.A4
 # nippon/multi-byte support from http://people.debian.org/~ukai/groff/
-Patch3:   groff-1.19.1-mb.patch
-Patch4:   groff-1.18-info.patch
-Patch5:   groff-1.19.1-nohtml.patch
-Patch6:   groff-1.17.2-libsupc++.patch
-Patch7:   groff-1.19.1-nops.patch
-Patch8:   groff-1.19.1-fonts.patch
-Patch102: groff-1.16.1-no-lbp-on-alpha.patch
+Patch3:		groff-1.19.1-mb.patch
+Patch4:		groff-1.18-info.patch
+Patch5:		groff-1.19.1-nohtml.patch
+Patch6:		groff-1.17.2-libsupc++.patch
+Patch7:		groff-1.19.1-nops.patch
+Patch8:		groff-1.19.1-fonts.patch
+Patch102:	groff-1.16.1-no-lbp-on-alpha.patch
 # improved (i18n) nroff script
-Patch108: groff-1.19-nroff.patch
+Patch108:	groff-1.19-nroff.patch
 # keeps apostrophes and dashes as ascii, but only for man pages
 # -- pablo
-Patch109: groff-1.19-dashes.patch
-Patch110: groff-1.19.1-CAN-2004-0969.patch
-Patch111: groff-1.19.1-lzma-support.patch
+Patch109:	groff-1.19-dashes.patch
+Patch110:	groff-1.19.1-CAN-2004-0969.patch
+Patch111:	groff-1.19.1-lzma-support.patch
 
-Requires:  mktemp groff-for-man = %{version}-%{release}
-Buildroot: %_tmppath/%name-root
-Obsoletes: groff-tools
-Provides:  groff-tools
-Requires(post,preun): info-install
+Requires:	mktemp 
+Requires:	groff-for-man = %{version}-%{release}
+Buildroot:	%_tmppath/%name-root
+Obsoletes:	groff-tools
+Provides:	groff-tools
+Requires(post,preun):	info-install
 
 %description
 Groff is a document formatting system.  Groff takes standard text and
@@ -58,7 +62,7 @@ to use groff with the X Window System, you'll also need to install the
 groff-gxditview package.
 
 %package for-man
-Summary: Parts of the groff formatting system that is required for viewing manpages
+Summary: Part of the groff formatting system that is required for viewing manpages
 Group: Text tools
 Conflicts: groff < 1.19.1-5
 
@@ -111,10 +115,9 @@ need to install the groff package and the X Window System.
 
 cp -f %SOURCE2 ./
 
-WANT_AUTOCONF_2_5=1 autoconf
+autoconf
 
 %build
-PATH=$PATH:%_prefix/X11R6/bin
 export MAKEINFO=$HOME/cvs/texinfo/makeinfo/makeinfo
 %configure2_5x --enable-multibyte
 make top_builddir=$PWD top_srcdir=$PWD
@@ -130,7 +133,6 @@ make depend
 
 %install
 rm -rf $RPM_BUILD_ROOT
-PATH=$PATH:%_prefix/X11R6/bin
 mkdir -p $RPM_BUILD_ROOT{%_prefix,%_infodir,%_bindir,%_docdir/%name/%version/html/momdoc}
 %makeinstall manroot=%buildroot/%_mandir top_builddir=$PWD top_srcdir=$PWD common_words_file=$RPM_BUILD_ROOT%_datadir/%name/%version mkinstalldirs=mkdir
 install -m 644 doc/groff.info* $RPM_BUILD_ROOT/%_infodir
@@ -219,21 +221,19 @@ rm -rf %{buildroot}%{_docdir}/groff
 
 %files -f groff.list
 %defattr(-,root,root)
-%doc BUG-REPORT COPYING NEWS PROBLEMS README README.A4 TODO VERSION
+%doc BUG-REPORT NEWS PROBLEMS README README.A4 TODO VERSION
 %_infodir/groff*
 
 %files for-man -f groff-for-man.list
 %defattr(-,root,root)
-%doc COPYING
 
 %files perl -f groff-perl.list
 %defattr(-,root,root)
-%doc COPYING
 %_libdir/rhs/*/*
 
 %files gxditview
 %defattr(-,root,root)
-%doc VERSION COPYING
+%doc VERSION
 %_bindir/gxditview
 %config(noreplace) /etc/X11/app-defaults/GXditview
 # this is a symlink, spec-helper creates it
