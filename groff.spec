@@ -13,6 +13,8 @@ BuildRequires: imake, gccmakedep
 BuildRequires: netpbm, netpbm-devel
 BuildRequires: texinfo >= 4.3
 BuildRequires: xpm-devel, libxaw-devel
+BuildRequires: perl-devel
+BuildRequires: ghostscript
 # For psselect:
 BuildRequires: psutils
 # for rman:
@@ -212,7 +214,8 @@ ln -sf doc.tmac $RPM_BUILD_ROOT/usr/share/groff/%version/tmac/docj.tmac
 
 for i in $(find $RPM_BUILD_ROOT -empty -type f); do echo " ">> $i;done
 
-mv $RPM_BUILD_ROOT%_docdir/{groff/%version,%name-%version}
+# cleanup
+rm -rf %{buildroot}%{_docdir}/groff
 
 %files -f groff.list
 %defattr(-,root,root)
