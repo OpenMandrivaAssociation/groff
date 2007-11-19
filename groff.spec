@@ -156,7 +156,7 @@ mkdir -p $RPM_BUILD_ROOT/%_libdir/rhs/rhs-printfilters
 install -m755 %{SOURCE1} $RPM_BUILD_ROOT/%_libdir/rhs/rhs-printfilters
 
 # call spec-helper before creating the file list
-s=/usr/share/spec-helper/spec-helper ; [ -x $s ] && $s
+%{?__spec_helper_post}
 
 cat <<EOF > groff.list
 /%_datadir/groff/%version/eign
