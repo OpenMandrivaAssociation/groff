@@ -44,7 +44,6 @@ Patch111:	groff-1.19.1-lzma-support.patch
 
 Requires:	mktemp 
 Requires:	groff-for-man = %{version}-%{release}
-Buildroot:	%_tmppath/%name-root
 Obsoletes:	groff-tools
 Provides:	groff-tools
 Requires(post,preun):	info-install
