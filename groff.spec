@@ -1,7 +1,7 @@
 # rh-1.18-3
 # deb-1.18-4
 
-Summary:	A document formatting system
+Summary:	Document formatting system
 Name:		groff
 Version:	1.19.1
 Release:	%mkrel 7
@@ -62,7 +62,7 @@ to use groff with the X Window System, you'll also need to install the
 groff-gxditview package.
 
 %package for-man
-Summary: Part of the groff formatting system that is required for viewing manpages
+Summary: Required for viewing manpages
 Group: Text tools
 Conflicts: groff < 1.19.1-5
 
@@ -84,7 +84,7 @@ to automatically determine groff command-line options, and the
 troff-to-ps print filter.
 
 %package gxditview
-Summary:	An X previewer for groff text processor output
+Summary:	X previewer for groff text processor output
 Group:		Text tools
 Requires: groff-for-man = %{version}-%{release}
 
