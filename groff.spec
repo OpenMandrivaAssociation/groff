@@ -140,7 +140,10 @@ pushd src/xditview
 %makeinstall DESTDIR=$RPM_BUILD_ROOT
 
 # A link to ../../../etc/X11/app-defaults is made
-rm -fr %{buildroot}%{_libdir}/X11/app-defaults
+APPDEF=%{buildroot}%{_libdir}/X11/app-defaults
+if   [ -L $APPDEF ]; then rm    $APPDEF
+elif [ -d $APPDEF ]; then rmdir $APPDEF
+fi
 
 popd
 for i in s.tmac mse.tmac m.tmac; do
