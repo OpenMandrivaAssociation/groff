@@ -4,7 +4,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.19.1
-Release:	%mkrel 8
+Release:	%mkrel 9
 License:	GPLv2+
 Group:		Text tools
 BuildRequires:	autoconf
@@ -127,7 +127,7 @@ cd ../src/xditview
 xmkmf
 perl -p -i -e "s|CXXDEBUGFLAGS = .*|CXXDEBUGFLAGS = $RPM_OPT_FLAGS|" Makefile
 perl -p -i -e "s|CDEBUGFLAGS = .*|CDEBUGFLAGS = $RPM_OPT_FLAGS|" Makefile
-perl -p -i -e "s|XAPPLOADDIR = .*|XAPPLOADDIR = /etc/X11/app-defaults|" Makefile
+perl -p -i -e "s|XAPPLOADDIR = .*|XAPPLOADDIR = %{_datadir}/X11/app-defaults|" Makefile
 make depend
 %make 
 
@@ -138,6 +138,9 @@ mkdir -p $RPM_BUILD_ROOT{%_prefix,%_infodir,%_bindir,%_docdir/%name/%version/htm
 install -m 644 doc/groff.info* $RPM_BUILD_ROOT/%_infodir
 pushd src/xditview
 %makeinstall DESTDIR=$RPM_BUILD_ROOT
+
+# A link to ../../../etc/X11/app-defaults is made
+rm -fr %{buildroot}%{_libdir}/X11/app-defaults
 
 popd
 for i in s.tmac mse.tmac m.tmac; do
@@ -235,10 +238,7 @@ rm -rf %{buildroot}%{_docdir}/groff
 %defattr(-,root,root)
 %doc VERSION
 %_bindir/gxditview
-%config(noreplace) /etc/X11/app-defaults/GXditview
-# this is a symlink, spec-helper creates it
-/usr/lib/X11/app-defaults
-
+%{_datadir}/X11/app-defaults/GXditview
 
 %post
 %_install_info %name
