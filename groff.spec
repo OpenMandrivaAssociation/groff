@@ -4,7 +4,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.19.1
-Release:	%mkrel 10
+Release:	%mkrel 11
 License:	GPLv2+
 Group:		Text tools
 BuildRequires:	autoconf
@@ -140,8 +140,8 @@ install -m 644 doc/groff.info* $RPM_BUILD_ROOT/%_infodir
 pushd src/xditview
 %makeinstall DESTDIR=$RPM_BUILD_ROOT
 
-# A link to ../../../etc/X11/app-defaults is made
-APPDEF=%{buildroot}%{_libdir}/X11/app-defaults
+# A link to ../../../etc/X11/app-defaults is made and named lib in x86_64
+APPDEF=%{buildroot}/usr/lib/X11/app-defaults
 if   [ -L $APPDEF ]; then rm    $APPDEF
 elif [ -d $APPDEF ]; then rmdir $APPDEF
 fi
