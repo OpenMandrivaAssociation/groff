@@ -20,8 +20,6 @@ BuildRequires:	perl-devel
 BuildRequires:	ghostscript
 # For psselect:
 BuildRequires:	psutils
-# for rman:
-BuildRequires:	x11-server-common
 URL:		http://www.gnu.org/directory/GNU/groff.html
 Source0:	ftp://prep.ai.mit.edu/pub/gnu/groff/%name-%version.tar.bz2
 Source1:	troff-to-ps.fpi
@@ -89,7 +87,7 @@ Group:		Text tools
 Requires: groff-for-man = %{version}-%{release}
 # Avoid problems with symlinks during transition - groff-gxditview used
 # to think it owned /usr/lib/X11 directory (that now is a symlink to /etc/X11).
-Requires(pre): x11-server-common >= 1.4.0.90-13mdv
+Requires(pre): x11-server-common > 1.4.0.90-12
 
 %description gxditview
 Gxditview displays the groff text processor's output on an X Window
