@@ -4,7 +4,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.19.1
-Release:	%mkrel 12
+Release:	%mkrel 13
 License:	GPLv2+
 Group:		Text tools
 BuildRequires:	autoconf
@@ -39,7 +39,7 @@ Patch108:	groff-1.19-nroff.patch
 Patch109:	groff-1.19-dashes.patch
 Patch110:	groff-1.19.1-CAN-2004-0969.patch
 Patch111:	groff-1.19.1-lzma-support.patch
-
+Patch112:	groff-1.19.1-format_not_a_string_literal_and_no_format_arguments.diff
 Requires:	mktemp 
 Requires:	groff-for-man = %{version}-%{release}
 Buildroot:	%_tmppath/%name-root
@@ -113,6 +113,7 @@ need to install the groff package and the X Window System.
 %patch109 -p1 -b ._dashes
 %patch110 -p1 -b .can-2004-0969
 %patch111 -p1 -b .lzma_support
+%patch112 -p0 -b .format_not_a_string_literal_and_no_format_arguments
 
 cp -f %SOURCE2 ./
 
