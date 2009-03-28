@@ -4,7 +4,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.19.1
-Release:	%mkrel 13
+Release:	%mkrel 14
 License:	GPLv2+
 Group:		Text tools
 BuildRequires:	autoconf
@@ -16,6 +16,7 @@ BuildRequires:	netpbm-devel
 BuildRequires:	texinfo >= 4.3
 BuildRequires:	xpm-devel
 BuildRequires:	libxaw-devel
+BuildRequires:	libxp-devel
 BuildRequires:	perl-devel
 BuildRequires:	ghostscript
 # For psselect:
