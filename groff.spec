@@ -4,6 +4,8 @@ Release:    %mkrel 1
 
 License:    GPLv2+
 URL:        http://www.gnu.org/software/groff/
+BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
+
 Source0:    ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:    troff-to-ps.fpi
 Patch0:     groff-1.20.1-string-format-error.patch
