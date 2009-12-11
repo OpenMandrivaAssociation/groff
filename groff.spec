@@ -1,6 +1,6 @@
 Name:       groff
 Version:    1.20.1
-Release:    %mkrel 1
+Release:    %mkrel 2
 
 License:    GPLv2+
 URL:        http://www.gnu.org/software/groff/
@@ -61,7 +61,6 @@ groff-gxditview package.
 %{_bindir}/pic
 %{_bindir}/pic2graph
 %{_bindir}/post-grohtml
-%{_bindir}/preconv
 %{_bindir}/pre-grohtml
 %{_bindir}/roff2dvi
 %{_bindir}/roff2html
@@ -108,7 +107,6 @@ groff-gxditview package.
 %{_mandir}/man1/pfbtops.*
 %{_mandir}/man1/pic.*
 %{_mandir}/man1/pic2graph.*
-%{_mandir}/man1/preconv.*
 %{_mandir}/man1/refer.*
 %{_mandir}/man1/roff2dvi.*
 %{_mandir}/man1/roff2html.*
@@ -134,6 +132,9 @@ groff-gxditview package.
 Summary: Groff components required for viewing manpages
 Group:   Text tools
 
+# preconv binary moved from older groff
+Conflicts: groff < 1.20.1-2mdv
+
 %description for-man
 The groff-for-man package contains the parts of the groff text processor
 package that are required for viewing manpages.
@@ -146,6 +147,7 @@ For a full groff package, install package groff.
 %{_bindir}/grops
 %{_bindir}/grotty
 %{_bindir}/nroff
+%{_bindir}/preconv
 %{_bindir}/tbl
 %{_bindir}/troff
 %{_datadir}/groff/current
@@ -163,6 +165,7 @@ For a full groff package, install package groff.
 %{_mandir}/man1/groff.*
 %{_mandir}/man1/grops.*
 %{_mandir}/man1/grotty.*
+%{_mandir}/man1/preconv.*
 %{_mandir}/man1/nroff.*
 %{_mandir}/man1/tbl.*
 %{_mandir}/man1/troff.*
