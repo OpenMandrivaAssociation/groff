@@ -1,6 +1,6 @@
 Name:       groff
-Version:    1.20.1
-Release:    %mkrel 3
+Version:    1.21
+Release:    %mkrel 1
 
 License:    GPLv2+
 URL:        http://www.gnu.org/software/groff/
@@ -8,8 +8,7 @@ BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 Source0:    ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:    troff-to-ps.fpi
-Patch0:     groff-1.20.1-string-format-error.patch
-Patch1:	    groff-1.20.1-nroff-convert-encoding.patch
+Patch1:     groff-1.20.1-nroff-convert-encoding.patch
 
 BuildRequires: netpbm
 BuildRequires: libxaw-devel
@@ -85,7 +84,7 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devps
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
-%{_docdir}/groff/
+%{_docdir}/groff-%{version}
 %{_infodir}/groff*
 %{_mandir}/man1/addftinfo.*
 %{_mandir}/man1/chem.*
@@ -227,12 +226,12 @@ also need to install the groff package and the X Window System.
 %apply_patches
 
 %build
-%configure --with-appresdir=%{buildroot}/%{_libdir}/X11/app-defaults/
+%configure2_5x
 %make
 
 %install
 rm -rf %{buildroot}
-%makeinstall
+%makeinstall_std
 
 mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
