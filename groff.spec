@@ -15,6 +15,7 @@ BuildRequires: libxaw-devel
 BuildRequires: libxmu-devel
 BuildRequires: psutils
 BuildRequires: ghostscript
+BuildRequires: imake
 
 #------------------------------------------------------------------------------#
 
