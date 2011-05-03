@@ -1,6 +1,6 @@
 Name:       groff
 Version:    1.21
-Release:    %mkrel 1
+Release:    %mkrel 2
 
 License:    GPLv2+
 URL:        http://www.gnu.org/software/groff/
