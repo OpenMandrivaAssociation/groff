@@ -1,11 +1,8 @@
 Name:       groff
 Version:    1.21
-Release:    %mkrel 2
-
+Release:    3
 License:    GPLv2+
 URL:        http://www.gnu.org/software/groff/
-BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-
 Source0:    ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:    troff-to-ps.fpi
 Patch1:     groff-1.20.1-nroff-convert-encoding.patch
@@ -24,7 +21,7 @@ BuildRequires: imake
 Summary: Document formatting system
 Group:   Text tools
 
-Requires: groff-for-man
+Requires: groff-base
 Requires(post,preun): info-install
 
 %description
@@ -40,7 +37,6 @@ use groff with the X Window System, you'll also need to install the
 groff-gxditview package.
 
 %files
-%defattr(-,root,root)
 %{_bindir}/addftinfo
 %{_bindir}/chem
 %{_bindir}/eqn2graph
@@ -127,21 +123,19 @@ groff-gxditview package.
 %_remove_install_info %name
 #------------------------------------------------------------------------------#
 
-%package for-man
-
+%package base
 Summary: Groff components required for viewing manpages
 Group:   Text tools
-
+%rename groff-for-man
 # preconv binary moved from older groff
 Conflicts: groff < 1.20.1-2mdv
 
-%description for-man
-The groff-for-man package contains the parts of the groff text processor
+%description base
+The groff-base package contains the parts of the groff text processor
 package that are required for viewing manpages.
 For a full groff package, install package groff.
 
-%files for-man
-%defattr(-,root,root)
+%files base
 %{_bindir}/eqn
 %{_bindir}/groff
 %{_bindir}/grops
@@ -176,7 +170,7 @@ For a full groff package, install package groff.
 
 Summary:  Parts of the groff formatting system that require Perl
 Group:    Text tools
-Requires: groff-for-man = %{version}-%{release}
+Requires: groff-base = %{version}-%{release}
 
 %description perl
 The groff-perl package contains the parts of the groff text processor
@@ -186,7 +180,6 @@ automatically determine groff command-line options, and the troff-to-ps
 print filter.
 
 %files perl
-%defattr(-,root,root)
 %{_bindir}/afmtodit
 %{_bindir}/grog
 %{_bindir}/mmroff
@@ -201,7 +194,7 @@ print filter.
 
 Summary:  X previewer for groff text processor output
 Group:    Text tools
-Requires: groff-for-man = %{version}-%{release}
+Requires: groff-base = %{version}-%{release}
 
 %description gxditview
 
@@ -213,7 +206,6 @@ gxditview so that you preview your processed text files in X. You'll
 also need to install the groff package and the X Window System.
 
 %files gxditview
-%defattr(-,root,root)
 %{_bindir}/gxditview
 %{_libdir}/X11/app-defaults/GXditview
 %{_libdir}/X11/app-defaults/GXditview-color
