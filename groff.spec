@@ -1,6 +1,6 @@
 Name:       groff
 Version:    1.21
-Release:    3
+Release:    4
 License:    GPLv2+
 URL:        http://www.gnu.org/software/groff/
 Source0:    ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
@@ -53,7 +53,6 @@ groff-gxditview package.
 %{_bindir}/lookbib
 %{_bindir}/neqn
 %{_bindir}/pdfroff
-%{_bindir}/pfbtops
 %{_bindir}/pic
 %{_bindir}/pic2graph
 %{_bindir}/post-grohtml
@@ -100,7 +99,6 @@ groff-gxditview package.
 %{_mandir}/man1/lookbib.*
 %{_mandir}/man1/neqn.*
 %{_mandir}/man1/pdfroff.*
-%{_mandir}/man1/pfbtops.*
 %{_mandir}/man1/pic.*
 %{_mandir}/man1/pic2graph.*
 %{_mandir}/man1/refer.*
@@ -117,10 +115,10 @@ groff-gxditview package.
 %{_mandir}/man7/*
 
 %post
-%_install_info %name
+%_install_info %{name}
 
 %preun
-%_remove_install_info %name
+%_remove_install_info %{name}
 #------------------------------------------------------------------------------#
 
 %package base
@@ -128,7 +126,9 @@ Summary: Groff components required for viewing manpages
 Group:   Text tools
 %rename groff-for-man
 # preconv binary moved from older groff
-Conflicts: groff < 1.20.1-2mdv
+# pfbtops binary moved from groff to base
+# the only bin reqd by font-tools MD 2012/02
+Conflicts: groff < 1.21-4
 
 %description base
 The groff-base package contains the parts of the groff text processor
@@ -141,6 +141,7 @@ For a full groff package, install package groff.
 %{_bindir}/grops
 %{_bindir}/grotty
 %{_bindir}/nroff
+%{_bindir}/pfbtops
 %{_bindir}/preconv
 %{_bindir}/tbl
 %{_bindir}/troff
@@ -159,6 +160,7 @@ For a full groff package, install package groff.
 %{_mandir}/man1/groff.*
 %{_mandir}/man1/grops.*
 %{_mandir}/man1/grotty.*
+%{_mandir}/man1/pfbtops.*
 %{_mandir}/man1/preconv.*
 %{_mandir}/man1/nroff.*
 %{_mandir}/man1/tbl.*
