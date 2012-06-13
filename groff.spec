@@ -1,28 +1,27 @@
-Name:       groff
-Version:    1.21
-Release:    4
-License:    GPLv2+
-URL:        http://www.gnu.org/software/groff/
-Source0:    ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
-Source1:    troff-to-ps.fpi
-Patch1:     groff-1.20.1-nroff-convert-encoding.patch
+Name:		groff
+Version:	1.21
+Release:	5
+License:	GPLv2+
+URL:		http://www.gnu.org/software/groff/
+Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
+Source1:	troff-to-ps.fpi
+Patch1:		groff-1.20.1-nroff-convert-encoding.patch
 
-BuildRequires: netpbm
-BuildRequires: libxaw-devel
-BuildRequires: libxmu-devel
-BuildRequires: psutils
-BuildRequires: ghostscript
-BuildRequires: imake
+BuildRequires:	netpbm
+BuildRequires:	libxaw-devel
+BuildRequires:	libxmu-devel
+BuildRequires:	psutils
+BuildRequires:	ghostscript
+BuildRequires:	imake
 
 #------------------------------------------------------------------------------#
 
 # package groff
 
-Summary: Document formatting system
-Group:   Text tools
+Summary:	Document formatting system
+Group:		Text tools
 
-Requires: groff-base
-Requires(post,preun): info-install
+Requires:	groff-base
 
 %description
 Groff is a document formatting system. Groff takes standard text and
@@ -114,21 +113,16 @@ groff-gxditview package.
 %{_mandir}/man5/*
 %{_mandir}/man7/*
 
-%post
-%_install_info %{name}
-
-%preun
-%_remove_install_info %{name}
 #------------------------------------------------------------------------------#
 
 %package base
-Summary: Groff components required for viewing manpages
-Group:   Text tools
+Summary:	Groff components required for viewing manpages
+Group:		Text tools
 %rename groff-for-man
 # preconv binary moved from older groff
 # pfbtops binary moved from groff to base
 # the only bin reqd by font-tools MD 2012/02
-Conflicts: groff < 1.21-4
+Conflicts:	groff < 1.21-4
 
 %description base
 The groff-base package contains the parts of the groff text processor
@@ -170,9 +164,9 @@ For a full groff package, install package groff.
 
 %package perl
 
-Summary:  Parts of the groff formatting system that require Perl
-Group:    Text tools
-Requires: groff-base = %{version}-%{release}
+Summary:	Parts of the groff formatting system that require Perl
+Group:		Text tools
+Requires:	groff-base = %{version}-%{release}
 
 %description perl
 The groff-perl package contains the parts of the groff text processor
@@ -194,9 +188,9 @@ print filter.
 
 %package gxditview
 
-Summary:  X previewer for groff text processor output
-Group:    Text tools
-Requires: groff-base = %{version}-%{release}
+Summary:	X previewer for groff text processor output
+Group:		Text tools
+Requires:	groff-base = %{version}-%{release}
 
 %description gxditview
 
@@ -216,7 +210,6 @@ also need to install the groff package and the X Window System.
 #------------------------------------------------------------------------------#
 
 %prep
-
 %setup -q
 %apply_patches
 
@@ -230,7 +223,4 @@ rm -rf %{buildroot}
 
 mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
-
-%clean
-rm -rf %{buildroot}
 
