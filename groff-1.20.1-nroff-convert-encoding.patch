@@ -1,0 +1,52 @@
+There are manpages written in many different encodings. This patch makes nroff
+recognize its input encoding and then pass it to groff as the "-K" argument
+(which will call preconv).
+
+The patch also adds a "2>/dev/null" which is used to prevent error messages when
+you open a big manpage and quickly close it.
+
+diff -Nru groff-1.20.1/src/roff/nroff/nroff.sh i18n/src/roff/nroff/nroff.sh
+--- groff-1.20.1/src/roff/nroff/nroff.sh	2009-01-09 12:25:52.000000000 -0200
++++ i18n/src/roff/nroff/nroff.sh	2009-11-19 10:35:14.000000000 -0200
+@@ -125,6 +125,33 @@
+     T=-T$Tloc ;;
+ esac
+ 
++# copy the man page to a temp file
++TMPFILE=$(mktemp /tmp/man.XXXXXX)
++trap "rm -f $TMPFILE" 0 1 2 3 15
++cat ${1+"$@"} >| ${TMPFILE}
++
++# test the charset encoding of the man page
++if iconv -f utf-8 -t utf-8 -o /dev/null ${TMPFILE} 2>/dev/null
++then
++  charset_in=utf-8
++else
++  # non utf-8 encoding
++  case "${LANGUAGE-${LC_CTYPE-${LANG}}}" in
++    cs*|hr*|hu*|pl*|ro*|sk*|sl*) charset_in=iso-8859-2 ;;
++    el*) charset_in=iso-8859-7 ;;
++    tr*) charset_in=iso-8859-9 ;;
++    bg*) charset_in=cp1251 ;;
++    ja*) charset_in=euc-jp ;;
++    ko*) charset_in=euc-kr ;;
++    ru*) charset_in=koi8-r ;;
++    uk*) charset_in=koi8-u ;;
++    zh_TW*|zh_HK*) charset_in=big5 ;;
++    zh_CN*|zh*) charset_in=gb2312 ;;
++    *) charset_in=iso-8859-1 ;;
++  esac
++fi
++
++
+ # Set up the `GROFF_BIN_PATH' variable
+ # to be exported in the current `GROFF_RUNTIME' environment.
+ 
+@@ -133,6 +160,6 @@
+ 
+ # Load nroff-style character definitions too.
+ 
+-PATH="$GROFF_RUNTIME$PATH" groff -mtty-char $T $opts ${1+"$@"}
++PATH="$GROFF_RUNTIME$PATH" cat $TMPFILE | groff -K $charset_in -mtty-char $T $opts 2>/dev/null
+ 
+ # eof
