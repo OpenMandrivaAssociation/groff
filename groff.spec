@@ -1,3 +1,5 @@
+%define short_ver %(echo %{version}|cut -d. -f1,2)
+
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.1
@@ -9,12 +11,12 @@ Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
 
-BuildRequires:	netpbm
-BuildRequires:	libxaw-devel
-BuildRequires:	libxmu-devel
-BuildRequires:	psutils
 BuildRequires:	ghostscript
 BuildRequires:	imake
+BuildRequires:	netpbm
+BuildRequires:	psutils
+BuildRequires:	pkgconfig(xaw7)
+BuildRequires:	pkgconfig(xmu)
 Requires:	groff-base
 
 %description
@@ -40,12 +42,14 @@ groff-gxditview package.
 %{_bindir}/groffer
 %{_bindir}/grolbp
 %{_bindir}/grolj4
+%{_bindir}/gropdf
 %{_bindir}/hpftodit
 %{_bindir}/indxbib
 %{_bindir}/lkbib
 %{_bindir}/lookbib
 %{_bindir}/neqn
 %{_bindir}/pdfroff
+%{_bindir}/pdfmom
 %{_bindir}/pic
 %{_bindir}/pic2graph
 %{_bindir}/post-grohtml
@@ -71,9 +75,10 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devlbp
 %{_datadir}/groff/%{version}/font/devlj4
 %{_datadir}/groff/%{version}/font/devps
+%{_datadir}/groff/%{version}/font/devpdf
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
-%{_docdir}/groff-%{version}
+%{_docdir}/groff-%{short_ver}
 %{_infodir}/groff*
 %{_mandir}/man1/addftinfo.*
 %{_mandir}/man1/chem.*
@@ -86,12 +91,14 @@ groff-gxditview package.
 %{_mandir}/man1/grohtml.*
 %{_mandir}/man1/grolbp.*
 %{_mandir}/man1/grolj4.*
+%{_mandir}/man1/gropdf.*
 %{_mandir}/man1/hpftodit.*
 %{_mandir}/man1/indxbib.*
 %{_mandir}/man1/lkbib.*
 %{_mandir}/man1/lookbib.*
 %{_mandir}/man1/neqn.*
 %{_mandir}/man1/pdfroff.*
+%{_mandir}/man1/pdfmom.*
 %{_mandir}/man1/pic.*
 %{_mandir}/man1/pic2graph.*
 %{_mandir}/man1/refer.*
@@ -206,4 +213,9 @@ also need to install the groff package and the X Window System.
 
 mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
+
+# MD fix bad symlink
+rm -f %{buildroot}/%{_datadir}/doc/groff-1.22/pdf/mom-pdf.pdf
+mv %{buildroot}%{_datadir}/doc/groff-1.22/examples/mom/mom-pdf.pdf \
+	%{buildroot}/%{_datadir}/doc/groff-1.22/pdf/mom-pdf.pdf
 
