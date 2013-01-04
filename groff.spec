@@ -1,7 +1,9 @@
+Summary:	Document formatting system
 Name:		groff
-Version:	1.21
-Release:	5
+Version:	1.22.1
+Release:	1
 License:	GPLv2+
+Group:		Text tools
 URL:		http://www.gnu.org/software/groff/
 Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
@@ -13,14 +15,6 @@ BuildRequires:	libxmu-devel
 BuildRequires:	psutils
 BuildRequires:	ghostscript
 BuildRequires:	imake
-
-#------------------------------------------------------------------------------#
-
-# package groff
-
-Summary:	Document formatting system
-Group:		Text tools
-
 Requires:	groff-base
 
 %description
@@ -113,8 +107,6 @@ groff-gxditview package.
 %{_mandir}/man5/*
 %{_mandir}/man7/*
 
-#------------------------------------------------------------------------------#
-
 %package base
 Summary:	Groff components required for viewing manpages
 Group:		Text tools
@@ -160,10 +152,7 @@ For a full groff package, install package groff.
 %{_mandir}/man1/tbl.*
 %{_mandir}/man1/troff.*
 
-#------------------------------------------------------------------------------#
-
 %package perl
-
 Summary:	Parts of the groff formatting system that require Perl
 Group:		Text tools
 Requires:	groff-base = %{version}-%{release}
@@ -184,10 +173,7 @@ print filter.
 %{_mandir}/man1/grog.*
 %{_mandir}/man1/mmroff.*
 
-#------------------------------------------------------------------------------#
-
 %package gxditview
-
 Summary:	X previewer for groff text processor output
 Group:		Text tools
 Requires:	groff-base = %{version}-%{release}
@@ -207,8 +193,6 @@ also need to install the groff package and the X Window System.
 %{_libdir}/X11/app-defaults/GXditview-color
 %{_mandir}/man1/gxditview.*
 
-#------------------------------------------------------------------------------#
-
 %prep
 %setup -q
 %apply_patches
@@ -218,7 +202,6 @@ also need to install the groff package and the X Window System.
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
