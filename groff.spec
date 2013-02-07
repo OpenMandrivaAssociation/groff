@@ -2,7 +2,7 @@
 
 Summary:	Document formatting system
 Name:		groff
-Version:	1.22.1
+Version:	1.22.2
 Release:	1
 License:	GPLv2+
 Group:		Text tools
@@ -78,7 +78,7 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devpdf
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
-%{_docdir}/groff-%{short_ver}
+%{_docdir}/groff-%{version}
 %{_infodir}/groff*
 %{_mandir}/man1/addftinfo.*
 %{_mandir}/man1/chem.*
@@ -215,7 +215,7 @@ mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 
 # MD fix bad symlink
-rm -f %{buildroot}/%{_datadir}/doc/groff-1.22/pdf/mom-pdf.pdf
-mv %{buildroot}%{_datadir}/doc/groff-1.22/examples/mom/mom-pdf.pdf \
-	%{buildroot}/%{_datadir}/doc/groff-1.22/pdf/mom-pdf.pdf
+rm -f %{buildroot}/%{_datadir}/doc/groff-%version/pdf/mom-pdf.pdf
+ln -s ../examples/mom/mom-pdf.pdf \
+	%{buildroot}/%{_datadir}/doc/groff-%version/pdf/mom-pdf.pdf
 
