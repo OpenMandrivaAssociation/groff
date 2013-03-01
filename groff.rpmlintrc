@@ -1,0 +1,3 @@
+# Workaround for some stuff in groff docs being zero length -- should be
+# fixed upstream at some point
+addFilter("E: zero-length")

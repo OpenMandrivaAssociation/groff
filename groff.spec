@@ -10,6 +10,7 @@ URL:		http://www.gnu.org/software/groff/
 Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
+Source100:	%name.rpmlintrc
 
 BuildRequires:	ghostscript
 BuildRequires:	imake
