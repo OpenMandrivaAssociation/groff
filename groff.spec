@@ -6,11 +6,11 @@ Version:	1.22.2
 Release:	1
 License:	GPLv2+
 Group:		Text tools
-URL:		http://www.gnu.org/software/groff/
+Url:		http://www.gnu.org/software/groff/
 Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
+Source100:	%{name}.rpmlintrc
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
-Source100:	%name.rpmlintrc
 
 BuildRequires:	ghostscript
 BuildRequires:	imake
@@ -21,10 +21,10 @@ BuildRequires:	pkgconfig(xmu)
 Requires:	groff-base
 
 %track
-prog %name = {
+prog %{name} = {
 	url = http://ftp.gnu.org/gnu/groff/
 	version = %version
-	regex = %name-(__VER__)\.tar\.gz
+	regex = %{name}-(__VER__)\.tar\.gz
 }
 
 %description
