@@ -1,4 +1,5 @@
 %define short_ver %(echo %{version}|cut -d. -f1,2)
+%bcond_with	crosscompile
 
 Summary:	Document formatting system
 Name:		groff
@@ -211,9 +212,19 @@ also need to install the groff package and the X Window System.
 %prep
 %setup -q
 %apply_patches
+%if %{with crosscompile}
+sed -i \
+    -e '/^GROFFBIN=/s:=.*:=%{_bindir}/groff:' \
+    -e '/^TROFFBIN=/s:=.*:=%{_bindir}/troff:' \
+    -e '/^GROFF_BIN_PATH=/s:=.*:=%{_bindir}:' \
+    -e '/^GROFF_BIN_DIR=/s:=.*:=%{_bindir}:' \
+    contrib/*/Makefile.sub \
+    doc/Makefile.in \
+    doc/Makefile.sub
+%endif
 
 %build
-%configure2_5x
+%configure2_5x --with-appresdir=%{_libdir}/X11/app-defaults
 %make
 
 %install
