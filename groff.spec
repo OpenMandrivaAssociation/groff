@@ -3,8 +3,8 @@
 
 Summary:	Document formatting system
 Name:		groff
-Version:	1.22.2
-Release:	11
+Version:	1.22.3
+Release:	1
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
@@ -158,6 +158,9 @@ For a full groff package, install package groff.
 %dir %{_datadir}/groff/site-tmac
 %{_datadir}/groff/site-tmac/man.local
 %{_datadir}/groff/site-tmac/mdoc.local
+%dir %{_libdir}/groff
+%{_libdir}/groff/groff_opts_no_arg.txt
+%{_libdir}/groff/groff_opts_with_arg.txt
 %{_mandir}/man1/eqn.*
 %{_mandir}/man1/groff.*
 %{_mandir}/man1/grops.*
@@ -181,13 +184,22 @@ automatically determine groff command-line options, and the troff-to-ps
 print filter.
 
 %files perl
+%{_bindir}/gperl
+%{_bindir}/gpinyin
+%{_bindir}/glilypond
 %{_bindir}/afmtodit
 %{_bindir}/grog
 %{_bindir}/mmroff
 %{_libdir}/rhs/rhs-printfilters/troff-to-ps.fpi
+%{_libdir}/groff/grog
+%{_libdir}/groff/glilypond
+%{_libdir}/groff/gpinyin
 %{_mandir}/man1/afmtodit.*
+%{_mandir}/man1/gperl.1*
 %{_mandir}/man1/grog.*
 %{_mandir}/man1/mmroff.*
+%{_mandir}/man1/gpinyin.1*
+%{_mandir}/man1/glilypond.1*
 
 %package gxditview
 Summary:	X previewer for groff text processor output
@@ -224,8 +236,9 @@ sed -i \
 %endif
 
 %build
-%configure2_5x --with-appresdir=%{_libdir}/X11/app-defaults
-%make
+%configure --with-appresdir=%{_libdir}/X11/app-defaults
+# Parallel build is broken as of 1.22.3
+make
 
 %install
 %makeinstall_std
