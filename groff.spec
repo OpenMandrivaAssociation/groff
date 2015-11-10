@@ -1,10 +1,13 @@
+%define binpair() %{_bindir}/%{1}\
+%{_mandir}/man1/%{1}.1*\ %{nil}
+
 %define short_ver %(echo %{version}|cut -d. -f1,2)
 %bcond_with	crosscompile
 
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.3
-Release:	3
+Release:	4
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
@@ -41,38 +44,28 @@ use groff with the X Window System, you'll also need to install the
 groff-gxditview package.
 
 %files
-%{_bindir}/addftinfo
-%{_bindir}/chem
-%{_bindir}/eqn2graph
-%{_bindir}/gdiffmk
-%{_bindir}/grap2graph
-%{_bindir}/grn
-%{_bindir}/grodvi
-%{_bindir}/groffer
-%{_bindir}/grolbp
-%{_bindir}/grolj4
-%{_bindir}/gropdf
-%{_bindir}/hpftodit
-%{_bindir}/indxbib
-%{_bindir}/lkbib
-%{_bindir}/lookbib
-%{_bindir}/neqn
-%{_bindir}/pdfroff
-%{_bindir}/pdfmom
-%{_bindir}/pic
-%{_bindir}/pic2graph
+%{binpair addftinfo}
+%{binpair eqn2graph}
+%{binpair gdiffmk}
+%{binpair grap2graph}
+%{binpair grn}
+%{binpair grodvi}
+%{binpair grolbp}
+%{binpair grolj4}
+%{binpair hpftodit}
+%{binpair indxbib}
+%{binpair lkbib}
+%{binpair lookbib}
+%{binpair neqn}
+%{binpair pdfroff}
+%{binpair pic}
+%{binpair pic2graph}
+%{binpair refer}
+%{binpair soelim}
+%{binpair tfmtodit}
+%{binpair xtotroff}
 %{_bindir}/post-grohtml
 %{_bindir}/pre-grohtml
-%{_bindir}/roff2dvi
-%{_bindir}/roff2html
-%{_bindir}/roff2pdf
-%{_bindir}/roff2ps
-%{_bindir}/roff2text
-%{_bindir}/roff2x
-%{_bindir}/refer
-%{_bindir}/soelim
-%{_bindir}/tfmtodit
-%{_bindir}/xtotroff
 %{_libdir}/groff/groffer
 %{_datadir}/groff/%{version}/eign
 %{_datadir}/groff/%{version}/font/devX100
@@ -89,37 +82,7 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/pic/chem.pic
 %{_docdir}/groff-%{version}
 %{_infodir}/groff*
-%{_mandir}/man1/addftinfo.*
-%{_mandir}/man1/chem.*
-%{_mandir}/man1/eqn2graph.*
-%{_mandir}/man1/gdiffmk.*
-%{_mandir}/man1/grap2graph.*
-%{_mandir}/man1/grn.*
-%{_mandir}/man1/grodvi.*
-%{_mandir}/man1/groffer.*
-%{_mandir}/man1/grohtml.*
-%{_mandir}/man1/grolbp.*
-%{_mandir}/man1/grolj4.*
-%{_mandir}/man1/gropdf.*
-%{_mandir}/man1/hpftodit.*
-%{_mandir}/man1/indxbib.*
-%{_mandir}/man1/lkbib.*
-%{_mandir}/man1/lookbib.*
-%{_mandir}/man1/neqn.*
-%{_mandir}/man1/pdfroff.*
-%{_mandir}/man1/pdfmom.*
-%{_mandir}/man1/pic.*
-%{_mandir}/man1/pic2graph.*
-%{_mandir}/man1/refer.*
-%{_mandir}/man1/roff2dvi.*
-%{_mandir}/man1/roff2html.*
-%{_mandir}/man1/roff2ps.*
-%{_mandir}/man1/roff2pdf.*
-%{_mandir}/man1/roff2text.*
-%{_mandir}/man1/roff2x.*
-%{_mandir}/man1/soelim.*
-%{_mandir}/man1/tfmtodit.*
-%{_mandir}/man1/xtotroff.*
+%{_mandir}/man1/grohtml.1*
 %{_mandir}/man5/*
 %{_mandir}/man7/*
 
@@ -138,15 +101,15 @@ package that are required for viewing manpages.
 For a full groff package, install package groff.
 
 %files base
-%{_bindir}/eqn
-%{_bindir}/groff
-%{_bindir}/grops
-%{_bindir}/grotty
-%{_bindir}/nroff
-%{_bindir}/pfbtops
-%{_bindir}/preconv
-%{_bindir}/tbl
-%{_bindir}/troff
+%{binpair eqn}
+%{binpair groff}
+%{binpair grops}
+%{binpair grotty}
+%{binpair nroff}
+%{binpair pfbtops}
+%{binpair preconv}
+%{binpair tbl}
+%{binpair troff}
 %{_datadir}/groff/current
 %dir %{_datadir}/groff
 %dir %{_datadir}/groff/%{version}
@@ -161,20 +124,12 @@ For a full groff package, install package groff.
 %dir %{_libdir}/groff
 %{_libdir}/groff/groff_opts_no_arg.txt
 %{_libdir}/groff/groff_opts_with_arg.txt
-%{_mandir}/man1/eqn.*
-%{_mandir}/man1/groff.*
-%{_mandir}/man1/grops.*
-%{_mandir}/man1/grotty.*
-%{_mandir}/man1/pfbtops.*
-%{_mandir}/man1/preconv.*
-%{_mandir}/man1/nroff.*
-%{_mandir}/man1/tbl.*
-%{_mandir}/man1/troff.*
 
 %package perl
 Summary:	Parts of the groff formatting system that require Perl
 Group:		Text tools
 Requires:	groff-base = %{version}-%{release}
+Conflicts:	groff < 1.22.3-4
 
 %description perl
 The groff-perl package contains the parts of the groff text processor
@@ -184,22 +139,26 @@ automatically determine groff command-line options, and the troff-to-ps
 print filter.
 
 %files perl
-%{_bindir}/gperl
-%{_bindir}/gpinyin
-%{_bindir}/glilypond
-%{_bindir}/afmtodit
-%{_bindir}/grog
-%{_bindir}/mmroff
-%{_libdir}/rhs/rhs-printfilters/troff-to-ps.fpi
-%{_libdir}/groff/grog
+%{binpair afmtodit}
+%{binpair chem}
+%{binpair glilypond}
+%{binpair gperl}
+%{binpair gpinyin}
+%{binpair groffer}
+%{binpair grog}
+%{binpair gropdf}
+%{binpair mmroff}
+%{binpair pdfmom}
+%{binpair roff2dvi}
+%{binpair roff2html}
+%{binpair roff2pdf}
+%{binpair roff2ps}
+%{binpair roff2text}
+%{binpair roff2x}
 %{_libdir}/groff/glilypond
 %{_libdir}/groff/gpinyin
-%{_mandir}/man1/afmtodit.*
-%{_mandir}/man1/gperl.1*
-%{_mandir}/man1/grog.*
-%{_mandir}/man1/mmroff.*
-%{_mandir}/man1/gpinyin.1*
-%{_mandir}/man1/glilypond.1*
+%{_libdir}/groff/grog
+%{_libdir}/rhs/rhs-printfilters/troff-to-ps.fpi
 
 %package gxditview
 Summary:	X previewer for groff text processor output
@@ -216,10 +175,9 @@ gxditview so that you preview your processed text files in X. You'll
 also need to install the groff package and the X Window System.
 
 %files gxditview
-%{_bindir}/gxditview
+%{binpair gxditview}
 %{_libdir}/X11/app-defaults/GXditview
 %{_libdir}/X11/app-defaults/GXditview-color
-%{_mandir}/man1/gxditview.*
 
 %prep
 %setup -q
