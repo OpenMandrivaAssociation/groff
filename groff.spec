@@ -7,7 +7,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.3
-Release:	4
+Release:	5
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
