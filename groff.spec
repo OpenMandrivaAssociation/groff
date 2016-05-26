@@ -7,7 +7,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.3
-Release:	7
+Release:	8
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
@@ -80,7 +80,7 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devpdf
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
-%{_docdir}/groff-%{version}
+
 %{_infodir}/groff*
 %{_mandir}/man1/grohtml.1*
 %{_mandir}/man5/*
@@ -89,7 +89,7 @@ groff-gxditview package.
 %package base
 Summary:	Groff components required for viewing manpages
 Group:		Text tools
-%rename groff-for-man
+%rename		groff-for-man
 # preconv binary moved from older groff
 # pfbtops binary moved from groff to base
 # the only bin reqd by font-tools MD 2012/02
@@ -179,6 +179,18 @@ also need to install the groff package and the X Window System.
 %{_libdir}/X11/app-defaults/GXditview
 %{_libdir}/X11/app-defaults/GXditview-color
 
+%package doc
+Summary:	Documentation for %{name}
+Group:		Development/Other
+BuildArch:	noarch
+Conflicts:	%{name} < 1.22.3-8
+
+%description doc
+Documentation for %{name}.
+
+%files doc
+%{_docdir}/groff-%{version}
+
 %prep
 %setup -q
 %apply_patches
@@ -196,7 +208,7 @@ sed -i \
 %build
 %configure --with-appresdir=%{_libdir}/X11/app-defaults
 # Parallel build is broken as of 1.22.3
-make
+%make -j1
 
 %install
 %makeinstall_std
@@ -205,7 +217,7 @@ mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 
 # MD fix bad symlink
-rm -f %{buildroot}/%{_datadir}/doc/groff-%version/pdf/mom-pdf.pdf
+rm -f %{buildroot}/%{_datadir}/doc/groff-%{version}/pdf/mom-pdf.pdf
 ln -s ../examples/mom/mom-pdf.pdf \
-	%{buildroot}/%{_datadir}/doc/groff-%version/pdf/mom-pdf.pdf
+	%{buildroot}/%{_datadir}/doc/groff-%{version}/pdf/mom-pdf.pdf
 
