@@ -2,19 +2,25 @@
 %{_mandir}/man1/%{1}.1*\ %{nil}
 
 %define short_ver %(echo %{version}|cut -d. -f1,2)
-%bcond_with	crosscompile
+%bcond_with crosscompile
 
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.3
-Release:	8
+Release:	9
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
 Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Source100:	%{name}.rpmlintrc
-Patch1:		groff-1.20.1-nroff-convert-encoding.patch
+Patch1:	groff-1.20.1-nroff-convert-encoding.patch
+# resolves: #709413, #720058, #720057
+Patch2:		0003-various-security-fixes.patch
+# resolves: #987069
+Patch3:		0004-don-t-use-usr-bin-env-in-shebang.patch
+# SSIA
+Patch4:		0005-Add-missing-rule-for-gropdf.patch
 
 BuildRequires:	ghostscript
 BuildRequires:	imake
