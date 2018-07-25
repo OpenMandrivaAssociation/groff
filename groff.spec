@@ -30,13 +30,6 @@ BuildRequires:	pkgconfig(xaw7)
 BuildRequires:	pkgconfig(xmu)
 Requires:	groff-base
 
-%track
-prog %{name} = {
-	url = http://ftp.gnu.org/gnu/groff/
-	version = %version
-	regex = %{name}-(__VER__)\.tar\.gz
-}
-
 %description
 Groff is a document formatting system. Groff takes standard text and
 formatting commands as input and produces formatted output. The created
