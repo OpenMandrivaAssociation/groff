@@ -4,10 +4,17 @@
 %define short_ver %(echo %{version}|cut -d. -f1,2)
 %bcond_with crosscompile
 
+# Workaround for the dependency generator
+# generating bogus dependencies on local
+# perl files (that the provides: generator
+# correctly doesn't pick up)
+%global __requires_exclude ^perl\\(.*\\.pl\\)$
+%{?perl_default_filter}
+
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.3
-Release:	11
+Release:	12
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
