@@ -34,6 +34,7 @@ BuildRequires:	netpbm
 BuildRequires:	psutils
 BuildRequires:	pkgconfig(xaw7)
 BuildRequires:	pkgconfig(xmu)
+BuildRequires:	bison
 Requires:	groff-base
 
 %description
