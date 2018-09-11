@@ -8,20 +8,19 @@
 # generating bogus dependencies on local
 # perl files (that the provides: generator
 # correctly doesn't pick up)
-%global __requires_exclude ^perl\\(.*\\.pl\\)$
-%{?perl_default_filter}
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\([^.]*\\.pl\\)
 
 Summary:	Document formatting system
 Name:		groff
 Version:	1.22.3
-Release:	12
+Release:	13
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
 Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Source100:	%{name}.rpmlintrc
-Patch1:	groff-1.20.1-nroff-convert-encoding.patch
+Patch1:		groff-1.20.1-nroff-convert-encoding.patch
 # resolves: #709413, #720058, #720057
 Patch2:		0003-various-security-fixes.patch
 # resolves: #987069
@@ -72,7 +71,6 @@ groff-gxditview package.
 %{binpair xtotroff}
 %{_bindir}/post-grohtml
 %{_bindir}/pre-grohtml
-%{_libdir}/groff/groffer
 %{_datadir}/groff/%{version}/eign
 %{_datadir}/groff/%{version}/font/devX100
 %{_datadir}/groff/%{version}/font/devX100-12
@@ -134,7 +132,7 @@ For a full groff package, install package groff.
 %package perl
 Summary:	Parts of the groff formatting system that require Perl
 Group:		Text tools
-Requires:	groff-base = %{version}-%{release}
+Requires:	groff-base = %{EVRD}
 Conflicts:	groff < 1.22.3-4
 
 %description perl
@@ -161,6 +159,7 @@ print filter.
 %{binpair roff2ps}
 %{binpair roff2text}
 %{binpair roff2x}
+%{_libdir}/groff/groffer
 %{_libdir}/groff/glilypond
 %{_libdir}/groff/gpinyin
 %{_libdir}/groff/grog
@@ -169,7 +168,7 @@ print filter.
 %package gxditview
 Summary:	X previewer for groff text processor output
 Group:		Text tools
-Requires:	groff-base = %{version}-%{release}
+Requires:	groff-base = %{EVRD}
 
 %description gxditview
 
@@ -198,8 +197,8 @@ Documentation for %{name}.
 %{_docdir}/groff-%{version}
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
+
 %if %{with crosscompile}
 sed -i \
     -e '/^GROFFBIN=/s:=.*:=%{_bindir}/groff:' \
@@ -214,10 +213,10 @@ sed -i \
 %build
 %configure --with-appresdir=%{_libdir}/X11/app-defaults
 # Parallel build is broken as of 1.22.3
-%make -j1
+%make_build -j1
 
 %install
-%makeinstall_std
+%make_install
 
 mkdir -p %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
@@ -226,4 +225,3 @@ install -m755 %{SOURCE1} %{buildroot}/%{_libdir}/rhs/rhs-printfilters
 rm -f %{buildroot}/%{_datadir}/doc/groff-%{version}/pdf/mom-pdf.pdf
 ln -s ../examples/mom/mom-pdf.pdf \
 	%{buildroot}/%{_datadir}/doc/groff-%{version}/pdf/mom-pdf.pdf
-
