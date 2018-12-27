@@ -12,8 +12,8 @@
 
 Summary:	Document formatting system
 Name:		groff
-Version:	1.22.3
-Release:	14
+Version:	1.22.4
+Release:	1
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
@@ -21,12 +21,7 @@ Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Source100:	%{name}.rpmlintrc
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
-# resolves: #709413, #720058, #720057
-Patch2:		0003-various-security-fixes.patch
-# resolves: #987069
-Patch3:		0004-don-t-use-usr-bin-env-in-shebang.patch
-# SSIA
-Patch4:		0005-Add-missing-rule-for-gropdf.patch
+Patch3:		https://src.fedoraproject.org/rpms/groff/raw/master/f/0004-don-t-use-usr-bin-env-in-shebang.patch
 
 BuildRequires:	ghostscript
 BuildRequires:	imake
@@ -77,6 +72,7 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devX100-12
 %{_datadir}/groff/%{version}/font/devX75
 %{_datadir}/groff/%{version}/font/devX75-12
+%{_datadir}/groff/%{version}/font/devcp1047
 %{_datadir}/groff/%{version}/font/devdvi
 %{_datadir}/groff/%{version}/font/devhtml
 %{_datadir}/groff/%{version}/font/devlbp

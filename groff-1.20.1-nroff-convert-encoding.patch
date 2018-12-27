@@ -1,14 +1,7 @@
-There are manpages written in many different encodings. This patch makes nroff
-recognize its input encoding and then pass it to groff as the "-K" argument
-(which will call preconv).
-
-The patch also adds a "2>/dev/null" which is used to prevent error messages when
-you open a big manpage and quickly close it.
-
-diff -Nru groff-1.20.1/src/roff/nroff/nroff.sh i18n/src/roff/nroff/nroff.sh
---- groff-1.20.1/src/roff/nroff/nroff.sh	2009-01-09 12:25:52.000000000 -0200
-+++ i18n/src/roff/nroff/nroff.sh	2009-11-19 10:35:14.000000000 -0200
-@@ -125,6 +125,33 @@
+diff -up groff-1.22.4/src/roff/nroff/nroff.sh.1~ groff-1.22.4/src/roff/nroff/nroff.sh
+--- groff-1.22.4/src/roff/nroff/nroff.sh.1~	2018-11-18 23:28:27.000000000 +0100
++++ groff-1.22.4/src/roff/nroff/nroff.sh	2018-12-27 14:37:20.812159924 +0100
+@@ -123,6 +123,32 @@ case $T in
      T=-T$Tloc ;;
  esac
  
@@ -38,11 +31,10 @@ diff -Nru groff-1.20.1/src/roff/nroff/nroff.sh i18n/src/roff/nroff/nroff.sh
 +  esac
 +fi
 +
-+
- # Set up the `GROFF_BIN_PATH' variable
- # to be exported in the current `GROFF_RUNTIME' environment.
+ # Set up the 'GROFF_BIN_PATH' variable
+ # to be exported in the current 'GROFF_RUNTIME' environment.
  
-@@ -133,6 +160,6 @@
+@@ -131,6 +157,6 @@ export GROFF_BIN_PATH
  
  # Load nroff-style character definitions too.
  
