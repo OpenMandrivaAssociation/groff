@@ -1,5 +1,5 @@
 %define binpair() %{_bindir}/%{1}\
-%{_mandir}/man1/%{1}.1*\ %{nil}
+%doc %{_mandir}/man1/%{1}.1*\ %{nil}
 
 %define short_ver %(echo %{version}|cut -d. -f1,2)
 %bcond_with crosscompile
@@ -83,10 +83,10 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
 
-%{_infodir}/groff*
-%{_mandir}/man1/grohtml.1*
-%{_mandir}/man5/*
-%{_mandir}/man7/*
+%doc %{_infodir}/groff*
+%doc %{_mandir}/man1/grohtml.1*
+%doc %{_mandir}/man5/*
+%doc %{_mandir}/man7/*
 
 %package base
 Summary:	Groff components required for viewing manpages
