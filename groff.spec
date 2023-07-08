@@ -12,8 +12,8 @@
 
 Summary:	Document formatting system
 Name:		groff
-Version:	1.22.4
-Release:	3
+Version:	1.23.0
+Release:	1
 License:	GPLv2+
 Group:		Text tools
 Url:		http://www.gnu.org/software/groff/
@@ -21,7 +21,7 @@ Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Source100:	%{name}.rpmlintrc
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
-Patch3:		https://src.fedoraproject.org/rpms/groff/raw/master/f/0004-don-t-use-usr-bin-env-in-shebang.patch
+Patch2:		groff-1.23.0-clang.patch
 
 BuildRequires:	ghostscript
 BuildRequires:	imake
@@ -80,6 +80,7 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devlj4
 %{_datadir}/groff/%{version}/font/devps
 %{_datadir}/groff/%{version}/font/devpdf
+%{_datadir}/groff/%{version}/font/FontMap-X11
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
 
@@ -124,8 +125,6 @@ For a full groff package, install package groff.
 %{_datadir}/groff/site-tmac/man.local
 %{_datadir}/groff/site-tmac/mdoc.local
 %dir %{_libdir}/groff
-%{_libdir}/groff/groff_opts_no_arg.txt
-%{_libdir}/groff/groff_opts_with_arg.txt
 
 %package perl
 Summary:	Parts of the groff formatting system that require Perl
@@ -146,21 +145,10 @@ print filter.
 %{binpair glilypond}
 %{binpair gperl}
 %{binpair gpinyin}
-%{binpair groffer}
 %{binpair grog}
 %{binpair gropdf}
 %{binpair mmroff}
 %{binpair pdfmom}
-%{binpair roff2dvi}
-%{binpair roff2html}
-%{binpair roff2pdf}
-%{binpair roff2ps}
-%{binpair roff2text}
-%{binpair roff2x}
-%{_libdir}/groff/groffer
-%{_libdir}/groff/glilypond
-%{_libdir}/groff/gpinyin
-%{_libdir}/groff/grog
 %{_libdir}/rhs/rhs-printfilters/troff-to-ps.fpi
 
 %package gxditview
@@ -179,8 +167,8 @@ also need to install the groff package and the X Window System.
 
 %files gxditview
 %{binpair gxditview}
-%{_libdir}/X11/app-defaults/GXditview
-%{_libdir}/X11/app-defaults/GXditview-color
+%{_prefix}/lib/X11/app-defaults/GXditview
+%{_prefix}/lib/X11/app-defaults/GXditview-color
 
 %package doc
 Summary:	Documentation for %{name}

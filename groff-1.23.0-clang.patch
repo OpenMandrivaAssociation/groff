@@ -1,0 +1,36 @@
+diff -up groff-1.23.0/lib/stdlib.in.h.omv~ groff-1.23.0/lib/stdlib.in.h
+--- groff-1.23.0/lib/stdlib.in.h.omv~	2023-07-08 11:29:17.166025718 +0200
++++ groff-1.23.0/lib/stdlib.in.h	2023-07-08 11:29:36.456920872 +0200
+@@ -103,7 +103,7 @@ struct random_data
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -up groff-1.23.0/lib/string.in.h.omv~ groff-1.23.0/lib/string.in.h
+--- groff-1.23.0/lib/string.in.h.omv~	2023-07-08 11:30:17.206751181 +0200
++++ groff-1.23.0/lib/string.in.h	2023-07-08 11:30:28.935714770 +0200
+@@ -72,7 +72,7 @@
+    that can be freed by passing them as the Ith argument to the
+    function F.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if __GNUC__ >= 11
++# if __GNUC__ >= 11 && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
+diff -up groff-1.23.0/src/include/config.hin.omv~ groff-1.23.0/src/include/config.hin
+--- groff-1.23.0/src/include/config.hin.omv~	2023-07-08 11:31:05.401635075 +0200
++++ groff-1.23.0/src/include/config.hin	2023-07-08 11:31:17.002619941 +0200
+@@ -1149,7 +1149,7 @@
+    can be freed via 'free'; it can be used only after declaring 'free'.  */
+ /* Applies to: functions.  Cannot be used on inline functions.  */
+ #ifndef _GL_ATTRIBUTE_DEALLOC
+-# if _GL_GNUC_PREREQ (11, 0)
++# if _GL_GNUC_PREREQ (11, 0) && !defined(__clang__)
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i) __attribute__ ((__malloc__ (f, i)))
+ # else
+ #  define _GL_ATTRIBUTE_DEALLOC(f, i)
