@@ -21,6 +21,7 @@ Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Source100:	%{name}.rpmlintrc
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
+Patch2:		groff-1.22.4-clang16.patch
 Patch3:		https://src.fedoraproject.org/rpms/groff/raw/master/f/0004-don-t-use-usr-bin-env-in-shebang.patch
 
 BuildRequires:	ghostscript
