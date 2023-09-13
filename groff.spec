@@ -10,6 +10,8 @@
 # correctly doesn't pick up)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\([^.]*\\.pl\\)
 
+%bcond_without x11
+
 Summary:	Document formatting system
 Name:		groff
 Version:	1.23.0
@@ -27,11 +29,19 @@ BuildRequires:	ghostscript
 BuildRequires:	imake
 BuildRequires:	netpbm
 BuildRequires:	psutils
-BuildRequires:	pkgconfig(xaw7)
-BuildRequires:	pkgconfig(xmu)
 BuildRequires:	bison
 BuildRequires:	texinfo
 Requires:	groff-base
+
+%if %{with x11}
+BuildRequires:	pkgconfig(xaw7)
+BuildRequires:	pkgconfig(xmu)
+%endif
+
+%if %{cross_compiling}
+# When cross-compiling, we can't use the just-built groff...
+BuildRequires:	groff-base groff-perl
+%endif
 
 %description
 Groff is a document formatting system. Groff takes standard text and
@@ -65,14 +75,17 @@ groff-gxditview package.
 %{binpair refer}
 %{binpair soelim}
 %{binpair tfmtodit}
-%{binpair xtotroff}
 %{_bindir}/post-grohtml
 %{_bindir}/pre-grohtml
-%{_datadir}/groff/%{version}/eign
+%if %{with x11}
+%{binpair xtotroff}
 %{_datadir}/groff/%{version}/font/devX100
 %{_datadir}/groff/%{version}/font/devX100-12
 %{_datadir}/groff/%{version}/font/devX75
 %{_datadir}/groff/%{version}/font/devX75-12
+%{_datadir}/groff/%{version}/font/FontMap-X11
+%endif
+%{_datadir}/groff/%{version}/eign
 %{_datadir}/groff/%{version}/font/devcp1047
 %{_datadir}/groff/%{version}/font/devdvi
 %{_datadir}/groff/%{version}/font/devhtml
@@ -80,7 +93,6 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devlj4
 %{_datadir}/groff/%{version}/font/devps
 %{_datadir}/groff/%{version}/font/devpdf
-%{_datadir}/groff/%{version}/font/FontMap-X11
 %{_datadir}/groff/%{version}/oldfont/devps
 %{_datadir}/groff/%{version}/pic/chem.pic
 
@@ -165,10 +177,12 @@ If you are going to use groff as a text processor, you should install
 gxditview so that you preview your processed text files in X. You'll
 also need to install the groff package and the X Window System.
 
+%if %{with x11}
 %files gxditview
 %{binpair gxditview}
 %{_prefix}/lib/X11/app-defaults/GXditview
 %{_prefix}/lib/X11/app-defaults/GXditview-color
+%endif
 
 %package doc
 Summary:	Documentation for %{name}
@@ -199,7 +213,11 @@ sed -i \
 %build
 %configure --with-appresdir=%{_libdir}/X11/app-defaults
 # Parallel build is broken as of 1.22.3
-%make_build -j1
+%make_build -j1 \
+%if %{cross_compiling}
+	GROFFBIN=%{_bindir}/groff \
+	GROFF_BIN_PATH=%{_bindir}
+%endif
 
 %install
 %make_install
