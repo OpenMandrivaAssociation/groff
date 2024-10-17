@@ -18,7 +18,7 @@ Version:	1.23.0
 Release:	1
 License:	GPLv2+
 Group:		Text tools
-Url:		http://www.gnu.org/software/groff/
+Url:		https://www.gnu.org/software/groff/
 Source0:	ftp://ftp.gnu.org/gnu/groff/%{name}-%{version}.tar.gz
 Source1:	troff-to-ps.fpi
 Source100:	%{name}.rpmlintrc
