@@ -25,6 +25,10 @@ Source100:	%{name}.rpmlintrc
 Patch1:		groff-1.20.1-nroff-convert-encoding.patch
 Patch2:		groff-1.23.0-clang.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	ghostscript
 BuildRequires:	imake
 BuildRequires:	netpbm
