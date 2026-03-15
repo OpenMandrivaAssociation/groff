@@ -14,7 +14,7 @@
 
 Summary:	Document formatting system
 Name:		groff
-Version:	1.23.0
+Version:	1.24.1
 Release:	1
 License:	GPLv2+
 Group:		Text tools
@@ -27,7 +27,6 @@ Patch2:		groff-1.23.0-clang.patch
 
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
 BuildRequires:	slibtool
 BuildRequires:	ghostscript
 BuildRequires:	imake
@@ -73,7 +72,6 @@ groff-gxditview package.
 %{binpair lkbib}
 %{binpair lookbib}
 %{binpair neqn}
-%{binpair pdfroff}
 %{binpair pic}
 %{binpair pic2graph}
 %{binpair refer}
@@ -90,7 +88,6 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/FontMap-X11
 %endif
 %{_datadir}/groff/%{version}/eign
-%{_datadir}/groff/%{version}/font/devcp1047
 %{_datadir}/groff/%{version}/font/devdvi
 %{_datadir}/groff/%{version}/font/devhtml
 %{_datadir}/groff/%{version}/font/devlbp
@@ -98,7 +95,6 @@ groff-gxditview package.
 %{_datadir}/groff/%{version}/font/devps
 %{_datadir}/groff/%{version}/font/devpdf
 %{_datadir}/groff/%{version}/oldfont/devps
-%{_datadir}/groff/%{version}/pic/chem.pic
 
 %doc %{_infodir}/groff*
 %doc %{_mandir}/man1/grohtml.1*
