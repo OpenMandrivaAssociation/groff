@@ -30,6 +30,7 @@ BuildRequires:	automake
 BuildRequires:	slibtool
 BuildRequires:	ghostscript
 BuildRequires:	imake
+BuildRequires:	make
 BuildRequires:	netpbm
 BuildRequires:	psutils
 BuildRequires:	bison
