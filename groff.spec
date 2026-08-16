@@ -15,7 +15,7 @@
 Summary:	Document formatting system
 Name:		groff
 Version:	1.24.1
-Release:	1
+Release:	2
 License:	GPLv2+
 Group:		Text tools
 Url:		https://www.gnu.org/software/groff/
@@ -213,6 +213,11 @@ sed -i \
 
 %build
 %configure --with-appresdir=%{_libdir}/X11/app-defaults
+%if %{cross_compiling}
+# pdfmom hardcodes GROFF_COMMAND=test-groff (the just-built binary).
+# When cross-compiling that is a target ELF, so use the host groff instead.
+sed -i 's|GROFF_COMMAND=test-groff|GROFF_COMMAND=%{_bindir}/groff|g' Makefile
+%endif
 # Parallel build is broken as of 1.22.3
 %make_build -j1 \
 %if %{cross_compiling}
