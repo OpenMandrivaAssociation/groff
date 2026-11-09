@@ -43,8 +43,10 @@ BuildRequires:	pkgconfig(xmu)
 %endif
 
 %if %{cross_compiling}
-# When cross-compiling, we can't use the just-built groff...
-BuildRequires:	groff-base groff-perl
+# When cross-compiling, we can't use the just-built groff.
+# soelim lives in the main package, not groff-base; man/groff.7.man
+# is produced by running the host binary.
+BuildRequires:	groff groff-base groff-perl
 %endif
 
 %description
@@ -226,11 +228,15 @@ unset GROFF_TYPESETTER
 # When cross-compiling that is a target ELF, so use the host groff instead.
 sed -i 's|GROFF_COMMAND=test-groff|GROFF_COMMAND=%{_bindir}/groff|g' Makefile
 %endif
-# Parallel build is broken as of 1.22.3
+# Parallel build is broken as of 1.22.3.
+# man/groff.7.man runs $(SOELIMBIN). That defaults to the just-built
+# soelim, a target ELF; qemu-user then fails to load libstdc++.
+# Cooker's soelim is 1.25 and accepts the -x flag in that rule.
 %make_build -j1 \
 %if %{cross_compiling}
 	GROFFBIN=%{_bindir}/groff \
-	GROFF_BIN_PATH=%{_bindir}
+	GROFF_BIN_PATH=%{_bindir} \
+	SOELIMBIN=%{_bindir}/soelim
 %endif
 
 %install
