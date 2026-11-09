@@ -212,7 +212,15 @@ sed -i \
 %endif
 
 %build
+# groff 1.25 installs geqn/gtroff/... when the chroot troff does not
+# report \n(.g) as 1. groff-base is always installed there, but its
+# troff defaults to the ps device, which ships in the main package, so
+# the probe aborts. ascii is part of groff-base. Do not leave this set
+# for the build: the in-tree groff should keep its ps default.
+GROFF_TYPESETTER=ascii
+export GROFF_TYPESETTER
 %configure --with-appresdir=%{_libdir}/X11/app-defaults
+unset GROFF_TYPESETTER
 %if %{cross_compiling}
 # pdfmom hardcodes GROFF_COMMAND=test-groff (the just-built binary).
 # When cross-compiling that is a target ELF, so use the host groff instead.
